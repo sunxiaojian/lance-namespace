@@ -48,7 +48,13 @@ pub struct QueryTableRequest {
     /// Lower bound for search
     #[serde(rename = "lower_bound", skip_serializing_if = "Option::is_none")]
     pub lower_bound: Option<f32>,
-    /// Number of probes for IVF index
+    /// Maximum number of IVF partitions to search. When omitted, all partitions may be searched if needed.
+    #[serde(rename = "maximum_nprobes", skip_serializing_if = "Option::is_none")]
+    pub maximum_nprobes: Option<i32>,
+    /// Minimum number of IVF partitions to search before adaptive expansion.
+    #[serde(rename = "minimum_nprobes", skip_serializing_if = "Option::is_none")]
+    pub minimum_nprobes: Option<i32>,
+    /// Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or maximum_nprobes is provided.
     #[serde(rename = "nprobes", skip_serializing_if = "Option::is_none")]
     pub nprobes: Option<i32>,
     /// Number of results to skip
@@ -92,6 +98,8 @@ impl QueryTableRequest {
             full_text_query: None,
             k,
             lower_bound: None,
+            maximum_nprobes: None,
+            minimum_nprobes: None,
             nprobes: None,
             offset: None,
             prefilter: None,

@@ -17,7 +17,9 @@ Name | Type | Description | Notes
 **full_text_query** | Option<[**models::QueryTableRequestFullTextQuery**](QueryTableRequest_full_text_query.md)> |  | [optional]
 **k** | **i32** | Number of results to return | 
 **lower_bound** | Option<**f32**> | Lower bound for search | [optional]
-**nprobes** | Option<**i32**> | Number of probes for IVF index | [optional]
+**maximum_nprobes** | Option<**i32**> | Maximum number of IVF partitions to search. When omitted, all partitions may be searched if needed. | [optional]
+**minimum_nprobes** | Option<**i32**> | Minimum number of IVF partitions to search before adaptive expansion. | [optional]
+**nprobes** | Option<**i32**> | Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or maximum_nprobes is provided. | [optional]
 **offset** | Option<**i32**> | Number of results to skip | [optional]
 **prefilter** | Option<**bool**> | Whether to apply filtering before vector search | [optional]
 **refine_factor** | Option<**i32**> | Refine factor for search | [optional]

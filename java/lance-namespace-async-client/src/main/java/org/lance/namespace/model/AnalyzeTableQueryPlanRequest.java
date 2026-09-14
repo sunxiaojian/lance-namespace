@@ -41,6 +41,8 @@ import java.util.StringJoiner;
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_FULL_TEXT_QUERY,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_K,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_LOWER_BOUND,
+  AnalyzeTableQueryPlanRequest.JSON_PROPERTY_MAXIMUM_NPROBES,
+  AnalyzeTableQueryPlanRequest.JSON_PROPERTY_MINIMUM_NPROBES,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_NPROBES,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_OFFSET,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_PREFILTER,
@@ -93,6 +95,12 @@ public class AnalyzeTableQueryPlanRequest {
 
   public static final String JSON_PROPERTY_LOWER_BOUND = "lower_bound";
   @javax.annotation.Nullable private Float lowerBound;
+
+  public static final String JSON_PROPERTY_MAXIMUM_NPROBES = "maximum_nprobes";
+  @javax.annotation.Nullable private Integer maximumNprobes;
+
+  public static final String JSON_PROPERTY_MINIMUM_NPROBES = "minimum_nprobes";
+  @javax.annotation.Nullable private Integer minimumNprobes;
 
   public static final String JSON_PROPERTY_NPROBES = "nprobes";
   @javax.annotation.Nullable private Integer nprobes;
@@ -455,13 +463,63 @@ public class AnalyzeTableQueryPlanRequest {
     this.lowerBound = lowerBound;
   }
 
+  public AnalyzeTableQueryPlanRequest maximumNprobes(
+      @javax.annotation.Nullable Integer maximumNprobes) {
+    this.maximumNprobes = maximumNprobes;
+    return this;
+  }
+
+  /**
+   * Maximum number of IVF partitions to search. When omitted, all partitions may be searched if
+   * needed. minimum: 1
+   *
+   * @return maximumNprobes
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_NPROBES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getMaximumNprobes() {
+    return maximumNprobes;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MAXIMUM_NPROBES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaximumNprobes(@javax.annotation.Nullable Integer maximumNprobes) {
+    this.maximumNprobes = maximumNprobes;
+  }
+
+  public AnalyzeTableQueryPlanRequest minimumNprobes(
+      @javax.annotation.Nullable Integer minimumNprobes) {
+    this.minimumNprobes = minimumNprobes;
+    return this;
+  }
+
+  /**
+   * Minimum number of IVF partitions to search before adaptive expansion. minimum: 1
+   *
+   * @return minimumNprobes
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MINIMUM_NPROBES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Integer getMinimumNprobes() {
+    return minimumNprobes;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MINIMUM_NPROBES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMinimumNprobes(@javax.annotation.Nullable Integer minimumNprobes) {
+    this.minimumNprobes = minimumNprobes;
+  }
+
   public AnalyzeTableQueryPlanRequest nprobes(@javax.annotation.Nullable Integer nprobes) {
     this.nprobes = nprobes;
     return this;
   }
 
   /**
-   * Number of probes for IVF index minimum: 0
+   * Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or
+   * maximum_nprobes is provided. minimum: 0
    *
    * @return nprobes
    */
@@ -690,6 +748,8 @@ public class AnalyzeTableQueryPlanRequest {
         && Objects.equals(this.fullTextQuery, analyzeTableQueryPlanRequest.fullTextQuery)
         && Objects.equals(this.k, analyzeTableQueryPlanRequest.k)
         && Objects.equals(this.lowerBound, analyzeTableQueryPlanRequest.lowerBound)
+        && Objects.equals(this.maximumNprobes, analyzeTableQueryPlanRequest.maximumNprobes)
+        && Objects.equals(this.minimumNprobes, analyzeTableQueryPlanRequest.minimumNprobes)
         && Objects.equals(this.nprobes, analyzeTableQueryPlanRequest.nprobes)
         && Objects.equals(this.offset, analyzeTableQueryPlanRequest.offset)
         && Objects.equals(this.prefilter, analyzeTableQueryPlanRequest.prefilter)
@@ -717,6 +777,8 @@ public class AnalyzeTableQueryPlanRequest {
         fullTextQuery,
         k,
         lowerBound,
+        maximumNprobes,
+        minimumNprobes,
         nprobes,
         offset,
         prefilter,
@@ -745,6 +807,8 @@ public class AnalyzeTableQueryPlanRequest {
     sb.append("    fullTextQuery: ").append(toIndentedString(fullTextQuery)).append("\n");
     sb.append("    k: ").append(toIndentedString(k)).append("\n");
     sb.append("    lowerBound: ").append(toIndentedString(lowerBound)).append("\n");
+    sb.append("    maximumNprobes: ").append(toIndentedString(maximumNprobes)).append("\n");
+    sb.append("    minimumNprobes: ").append(toIndentedString(minimumNprobes)).append("\n");
     sb.append("    nprobes: ").append(toIndentedString(nprobes)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    prefilter: ").append(toIndentedString(prefilter)).append("\n");
@@ -908,6 +972,22 @@ public class AnalyzeTableQueryPlanRequest {
           String.format(
               "%slower_bound%s=%s",
               prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLowerBound()))));
+    }
+
+    // add `maximum_nprobes` to the URL query string
+    if (getMaximumNprobes() != null) {
+      joiner.add(
+          String.format(
+              "%smaximum_nprobes%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMaximumNprobes()))));
+    }
+
+    // add `minimum_nprobes` to the URL query string
+    if (getMinimumNprobes() != null) {
+      joiner.add(
+          String.format(
+              "%sminimum_nprobes%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMinimumNprobes()))));
     }
 
     // add `nprobes` to the URL query string

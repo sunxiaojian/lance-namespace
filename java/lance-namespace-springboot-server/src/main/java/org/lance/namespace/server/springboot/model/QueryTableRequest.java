@@ -58,6 +58,10 @@ public class QueryTableRequest {
 
   private Float lowerBound;
 
+  private Integer maximumNprobes;
+
+  private Integer minimumNprobes;
+
   private Integer nprobes;
 
   private Integer offset;
@@ -408,20 +412,72 @@ public class QueryTableRequest {
     this.lowerBound = lowerBound;
   }
 
+  public QueryTableRequest maximumNprobes(Integer maximumNprobes) {
+    this.maximumNprobes = maximumNprobes;
+    return this;
+  }
+
+  /**
+   * Maximum number of IVF partitions to search. When omitted, all partitions may be searched if
+   * needed. minimum: 1
+   *
+   * @return maximumNprobes
+   */
+  @Min(1)
+  @Schema(
+      name = "maximum_nprobes",
+      description =
+          "Maximum number of IVF partitions to search. When omitted, all partitions may be searched if needed.",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("maximum_nprobes")
+  public Integer getMaximumNprobes() {
+    return maximumNprobes;
+  }
+
+  public void setMaximumNprobes(Integer maximumNprobes) {
+    this.maximumNprobes = maximumNprobes;
+  }
+
+  public QueryTableRequest minimumNprobes(Integer minimumNprobes) {
+    this.minimumNprobes = minimumNprobes;
+    return this;
+  }
+
+  /**
+   * Minimum number of IVF partitions to search before adaptive expansion. minimum: 1
+   *
+   * @return minimumNprobes
+   */
+  @Min(1)
+  @Schema(
+      name = "minimum_nprobes",
+      description = "Minimum number of IVF partitions to search before adaptive expansion.",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("minimum_nprobes")
+  public Integer getMinimumNprobes() {
+    return minimumNprobes;
+  }
+
+  public void setMinimumNprobes(Integer minimumNprobes) {
+    this.minimumNprobes = minimumNprobes;
+  }
+
   public QueryTableRequest nprobes(Integer nprobes) {
     this.nprobes = nprobes;
     return this;
   }
 
   /**
-   * Number of probes for IVF index minimum: 0
+   * Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or
+   * maximum_nprobes is provided. minimum: 0
    *
    * @return nprobes
    */
   @Min(0)
   @Schema(
       name = "nprobes",
-      description = "Number of probes for IVF index",
+      description =
+          "Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or maximum_nprobes is provided.",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("nprobes")
   public Integer getNprobes() {
@@ -645,6 +701,8 @@ public class QueryTableRequest {
         && Objects.equals(this.fullTextQuery, queryTableRequest.fullTextQuery)
         && Objects.equals(this.k, queryTableRequest.k)
         && Objects.equals(this.lowerBound, queryTableRequest.lowerBound)
+        && Objects.equals(this.maximumNprobes, queryTableRequest.maximumNprobes)
+        && Objects.equals(this.minimumNprobes, queryTableRequest.minimumNprobes)
         && Objects.equals(this.nprobes, queryTableRequest.nprobes)
         && Objects.equals(this.offset, queryTableRequest.offset)
         && Objects.equals(this.prefilter, queryTableRequest.prefilter)
@@ -672,6 +730,8 @@ public class QueryTableRequest {
         fullTextQuery,
         k,
         lowerBound,
+        maximumNprobes,
+        minimumNprobes,
         nprobes,
         offset,
         prefilter,
@@ -700,6 +760,8 @@ public class QueryTableRequest {
     sb.append("    fullTextQuery: ").append(toIndentedString(fullTextQuery)).append("\n");
     sb.append("    k: ").append(toIndentedString(k)).append("\n");
     sb.append("    lowerBound: ").append(toIndentedString(lowerBound)).append("\n");
+    sb.append("    maximumNprobes: ").append(toIndentedString(maximumNprobes)).append("\n");
+    sb.append("    minimumNprobes: ").append(toIndentedString(minimumNprobes)).append("\n");
     sb.append("    nprobes: ").append(toIndentedString(nprobes)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
     sb.append("    prefilter: ").append(toIndentedString(prefilter)).append("\n");

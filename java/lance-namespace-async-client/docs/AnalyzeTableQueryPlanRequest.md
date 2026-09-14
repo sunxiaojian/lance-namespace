@@ -20,7 +20,9 @@
 |**fullTextQuery** | [**QueryTableRequestFullTextQuery**](QueryTableRequestFullTextQuery.md) |  |  [optional] |
 |**k** | **Integer** | Number of results to return |  |
 |**lowerBound** | **Float** | Lower bound for search |  [optional] |
-|**nprobes** | **Integer** | Number of probes for IVF index |  [optional] |
+|**maximumNprobes** | **Integer** | Maximum number of IVF partitions to search. When omitted, all partitions may be searched if needed. |  [optional] |
+|**minimumNprobes** | **Integer** | Minimum number of IVF partitions to search before adaptive expansion. |  [optional] |
+|**nprobes** | **Integer** | Legacy exact number of IVF partitions to search. Ignored when minimum_nprobes or maximum_nprobes is provided. |  [optional] |
 |**offset** | **Integer** | Number of results to skip |  [optional] |
 |**prefilter** | **Boolean** | Whether to apply filtering before vector search |  [optional] |
 |**refineFactor** | **Integer** | Refine factor for search |  [optional] |
